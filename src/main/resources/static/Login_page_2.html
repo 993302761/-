@@ -5,24 +5,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landing...</title>
-  <link rel="stylesheet" href="login22/login_2/style.css">
+  <title>欢迎来到--外卖管理系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="#" />
 </head>
 <body>
   <div class="container">
     <div class="form-warp">
       <form class="sign-in-form">
-        <h2 class="form-title">停车场管理员登录</h2>
-        <input placeholder="用户名" />
-        <input type="password" placeholder="密码" />
-        <div class="submit-btn">立即登录</div>
+        <h2 class="form-title">管理员登录</h2>
+        <input placeholder="用户名"  id="user1"/><br/>
+        <input type="password" placeholder="密码" id="passwd1"/>
+        <button type="button" class="submit-btn"  id="login1">立即登录</button>
         <a href="register_page.html">还没有账号？立即注册</a>
       </form>
       <form class="sign-up-form">
         <h2 class="form-title">超级管理员登录</h2>
-        <input placeholder="用户名" />
-        <input type="password" placeholder="密码" />
-        <div class="submit-btn">立即登录</div>
+        <input placeholder="用户名" id="user2"/><br/>
+        <input type="password" placeholder="密码" id="passwd2"/>
+        <button type="button" class="submit-btn" id="login2">立即登录</button>
       </form>
     </div>
     <div class="desc-warp">
@@ -34,12 +35,82 @@
       </div>
       <div class="desc-warp-item sign-in-desc">
         <div class="content">
-          <button id="sign-in-btn">停车场管理员登录</button>
+          <button id="sign-in-btn">管理员登录</button>
         </div>
         <img src="login22/login_2/img/register.svg" alt="">
       </div>
     </div>
   </div>
-  <script src="login22/login_2/main.js"></script>
+  <script src="js/main.js"></script>
+  <script type="application/javascript" src="js/jquey-3.5.1.min.js"></script>
+  <script type="application/javascript">
+
+    $("#login1").on("click",function () {
+      var userName = document.getElementById("user1").value;
+      var userPass = document.getElementById("passwd1").value;
+
+      if (userName == "" || userName == null) {
+        alert("用户名不能为空");
+        return false;
+      }
+      else if (userPass == "" || userPass == null) {
+        alert("密码不能为空");
+        return false;
+      }
+
+      $.ajax({
+        url: "/login1",
+        method: "get",
+        data: {'ctr_id': $("#user1").val(), 'ctr_password': $("#passwd1").val()},
+        dataType:"text",
+        // xhrFields: {
+        //   withCredentials: true //允许跨域带Cookie
+        // },
+        success: function (result) {
+          if (result=="Y")
+            window.location.href = "/home_page.html";
+          else
+            alert(result)
+        },
+        error: function (result) {
+          alert(result)
+        }
+      })
+    })
+
+
+    $("#login2").on("click",function () {
+      var userName = document.getElementById("user2").value;
+      var userPass = document.getElementById("passwd2").value;
+
+      if (userName == "" || userName == null) {
+        alert("用户名不能为空");
+        return false;
+      }
+      else if (userPass == "" || userPass == null) {
+        alert("密码不能为空");
+        return false;
+      }
+
+      $.ajax({
+        url: "/login2",
+        method: "get",
+        data: {'ctr_id': $("#user2").val(), 'ctr_password': $("#passwd2").val()},
+        dataType:"text",
+        // xhrFields: {
+        //   withCredentials: true //允许跨域带Cookie
+        // },
+        success: function (result) {
+          if (result=="Y")
+            window.location.href = "/home_page2.html";
+          else
+            alert(result)
+        },
+        error: function (result) {
+          alert(result)
+        }
+      })
+    })
+  </script>
 </body>
 </html>

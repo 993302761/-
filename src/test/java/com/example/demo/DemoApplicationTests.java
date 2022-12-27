@@ -1,10 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.entiry.Point;
-import com.example.demo.entiry.contorller;
-import com.example.demo.entiry.park;
-import com.example.demo.entiry.parking;
-import com.example.demo.service.RedisServicempl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Test;

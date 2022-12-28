@@ -20,13 +20,21 @@ public interface AdministratorsDao {
     /**
      * 获取所有订单
      * */
-    @Select("SELECT * FROM order")
+    @Select("SELECT * FROM user_order")
     List<Order> getOrder();
+
+
+    /**
+     * 设置订单状态
+     * */
+    @Update("UPDATE user_order SET isOK=\"已完成\" WHERE pho=#{pho} and dishname=#{dishname} and dishprice=#{dishprice}")
+    int setStatus(@Param("pho") String pho,@Param("dishname") String dishname,@Param("dishprice") String dishprice);
+
 
 
     /**
      * 删除订单
      */
-    @Delete("DELETE  FROM User WHERE user_name =#{user_name} ")
+    @Delete("DELETE  FROM user_order WHERE user_name =#{user_name} ")
     void cancelOrder(@Param("user_name") String user_name);
 }

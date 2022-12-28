@@ -22,6 +22,13 @@ public class AdministratorsServiceImpl {
 
 
 
+
+    public String  complete (String data){
+        String[] split = data.split("\n");
+        administratorsDao.setStatus(split[2].trim(),split[3].trim(),split[4].trim());
+        return "Y";
+    }
+
     /**
      * TODO：超级管理员登录
      * @param ctr_id 超级管理员账号

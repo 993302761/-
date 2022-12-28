@@ -39,40 +39,50 @@ $('#six *').click(function() {
     $.sendConfirm({
       withCenter: true,
       title: '点餐交易确认',
-      msg: '您确定要点此菜品吗？',
+        content: '<div id="addIpBox">' + '<div class="frm-item">' + '<div class="frm-label"><span class="requireIcon">*</span> 电话号码:</div>' + '<input type="text" id="phone" class="frm-input" name="ip" placeholder="电话">' + '<div class="msg-box j_msgIp hide"></div>' ,
+        msg: '请留下您的电话号码',
       button: {
         confirm: '确认',
         cancel: '取消',
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
+
     $.sendMsg('点菜成功,菜品已加入购物车', 3000, function() {
       // 第一种
-  
-      console.log('sendMsg closed');
-      var span = $('#first').html(); 
-      
-      var picname=span.split("\n")[1].split("src")[1].slice(2,8);
-      var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
-      var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
-      var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
-      var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-      var db = openDatabase('dishes', '1.0', '点餐数据库', 30*1024*1024);
-      var msg;
-      addData(picname, dishname, dishdisc,dishprice,dishnum);
-      function addData(picname, dishname, dishdisc,dishprice,dishnum) {
-      db.transaction(function(tx) {
-        tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
-          tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                  
-              },
-              function(tx, error) {
-                  alert(error.source + "::" + error.message);
-              }
-      )
-      })
-  }
+
+      var span = $('#first').html();
+
+        var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
+        var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
+        var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
+        var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
+
+        var phone=222;
+        addData(phone, dishname, dishdisc,dishprice,dishnum);
+        function addData(phone, dishname, dishdisc,dishprice,dishnum) {
+            $.ajax({
+                url: "/order",
+                method: "post",
+                data: {'phone': phone, 'dishname': dishname, 'dishdisc': dishdisc, 'dishprice': dishprice, 'dishnum': dishnum},
+                dataType:"text",
+                // xhrFields: {
+                //   withCredentials: true //允许跨域带Cookie
+                // },
+                success: function (result) {
+                    if (result=="Y")
+                        window.location.href = "../../today.html";
+                    else
+                        alert(result)
+                },
+                error: function (result) {
+                    alert(result)
+                }
+            })
+
+        }
+
   });
       },
       onCancel: function() {
@@ -95,55 +105,64 @@ $('#six *').click(function() {
   $('#order2').click(function() {
     $.sendConfirm({
       withCenter: true,
-      title: '点餐交易确认',
-      msg: '您确定要点此菜品吗？',
+        title: '点餐交易确认',
+        content: '<div id="addIpBox">' + '<div class="frm-item">' + '<div class="frm-label"><span class="requireIcon">*</span> 电话号码:</div>' + '<input type="text" id="phone" class="frm-input" name="ip" placeholder="电话">' + '<div class="msg-box j_msgIp hide"></div>' ,
+        msg: '请留下您的电话号码',
       button: {
         confirm: '确认',
         cancel: '取消',
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车！', 3000, function() {
     console.log('sendMsg closed');
     console.log('sendMsg closed');
-      var span = $('#second').html(); 
-      
+      var span = $('#second').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
       var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
       var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-      var db = openDatabase('dishes', '1.0', '点餐数据库', 30*1024*1024);
-      var msg;
-      addData(picname, dishname, dishdisc,dishprice,dishnum);
-      function addData(picname, dishname, dishdisc,dishprice,dishnum) {
-      db.transaction(function(tx) {
-        tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
-          tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                  
-              },
-              function(tx, error) {
-                  alert(error.source + "::" + error.message);
-              }
-      )
-      })
-  }
-   
+        var phone=111;
+        addData(phone, dishname, dishdisc,dishprice,dishnum);
+        function addData(phone, dishname, dishdisc,dishprice,dishnum) {
+            $.ajax({
+                url: "/order",
+                method: "post",
+                data: {'phone': phone, 'dishname': dishname, 'dishdisc': dishdisc, 'dishprice': dishprice, 'dishnum': dishnum},
+                dataType:"text",
+                // xhrFields: {
+                //   withCredentials: true //允许跨域带Cookie
+                // },
+                success: function (result) {
+                    if (result=="Y")
+                        window.location.href = "../../today.html";
+                    else
+                        alert(result)
+                },
+                error: function (result) {
+                    alert(result)
+                }
+            })
+
+        }
+
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }
@@ -152,54 +171,63 @@ $('#six *').click(function() {
   $('#order3').click(function() {
     $.sendConfirm({
       withCenter: true,
-      title: '点餐交易确认',
-      msg: '您确定要点此菜品吗？',
+        title: '点餐交易确认',
+        content: '<div id="addIpBox">' + '<div class="frm-item">' + '<div class="frm-label"><span class="requireIcon">*</span> 电话号码:</div>' + '<input type="text" id="phone" class="frm-input" name="ip" placeholder="电话">' + '<div class="msg-box j_msgIp hide"></div>' ,
+        msg: '请留下您的电话号码',
       button: {
         confirm: '确认',
         cancel: '取消',
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车！', 3000, function() {
       console.log('sendMsg closed');
-      var span = $('#third').html(); 
-      
+      var span = $('#third').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
       var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
       var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-      var db = openDatabase('dishes', '1.0', '点餐数据库', 30*1024*1024);
-      var msg;
-      addData(picname, dishname, dishdisc,dishprice,dishnum);
-      function addData(picname, dishname, dishdisc,dishprice,dishnum) {
-      db.transaction(function(tx) {
-        tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
-          tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                  
-              },
-              function(tx, error) {
-                  alert(error.source + "::" + error.message);
-              }
-      )
-      })
-  }
-   
+        var phone=111;
+        addData(phone, dishname, dishdisc,dishprice,dishnum);
+        function addData(phone, dishname, dishdisc,dishprice,dishnum) {
+            $.ajax({
+                url: "/order",
+                method: "post",
+                data: {'phone': phone, 'dishname': dishname, 'dishdisc': dishdisc, 'dishprice': dishprice, 'dishnum': dishnum},
+                dataType:"text",
+                // xhrFields: {
+                //   withCredentials: true //允许跨域带Cookie
+                // },
+                success: function (result) {
+                    if (result=="Y")
+                        window.location.href = "../../today.html";
+                    else
+                        alert(result)
+                },
+                error: function (result) {
+                    alert(result)
+                }
+            })
+
+        }
+
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }
@@ -208,54 +236,63 @@ $('#six *').click(function() {
   $('#order4').click(function() {
     $.sendConfirm({
       withCenter: true,
-      title: '点餐交易确认',
-      msg: '您确定要点此菜品吗？',
+        title: '点餐交易确认',
+        content: '<div id="addIpBox">' + '<div class="frm-item">' + '<div class="frm-label"><span class="requireIcon">*</span> 电话号码:</div>' + '<input type="text" id="phone" class="frm-input" name="ip" placeholder="电话">' + '<div class="msg-box j_msgIp hide"></div>' ,
+        msg: '请留下您的电话号码',
       button: {
         confirm: '确认',
         cancel: '取消',
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车！', 3000, function() {
       console.log('sendMsg closed');
-      var span = $('#fourth').html(); 
-      
+      var span = $('#fourth').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
       var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
       var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-      var db = openDatabase('dishes', '1.0', '点餐数据库', 30*1024*1024);
-      var msg;
-      addData(picname, dishname, dishdisc,dishprice,dishnum);
-      function addData(picname, dishname, dishdisc,dishprice,dishnum) {
-      db.transaction(function(tx) {
-        tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
-          tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                  
-              },
-              function(tx, error) {
-                  alert(error.source + "::" + error.message);
-              }
-      )
-      })
-  }
-   
+        var phone=111;
+        addData(phone, dishname, dishdisc,dishprice,dishnum);
+        function addData(phone, dishname, dishdisc,dishprice,dishnum) {
+            $.ajax({
+                url: "/order",
+                method: "post",
+                data: {'phone': phone, 'dishname': dishname, 'dishdisc': dishdisc, 'dishprice': dishprice, 'dishnum': dishnum},
+                dataType:"text",
+                // xhrFields: {
+                //   withCredentials: true //允许跨域带Cookie
+                // },
+                success: function (result) {
+                    if (result=="Y")
+                        window.location.href = "../../today.html";
+                    else
+                        alert(result)
+                },
+                error: function (result) {
+                    alert(result)
+                }
+            })
+
+        }
+
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }
@@ -264,54 +301,63 @@ $('#six *').click(function() {
   $('#order5').click(function() {
     $.sendConfirm({
       withCenter: true,
-      title: '点餐交易确认',
-      msg: '您确定要点此菜品吗？',
+        title: '点餐交易确认',
+        content: '<div id="addIpBox">' + '<div class="frm-item">' + '<div class="frm-label"><span class="requireIcon">*</span> 电话号码:</div>' + '<input type="text" id="phone" class="frm-input" name="ip" placeholder="电话">' + '<div class="msg-box j_msgIp hide"></div>' ,
+        msg: '请留下您的电话号码',
       button: {
         confirm: '确认',
         cancel: '取消',
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车！', 3000, function() {
       console.log('sendMsg closed');
-      var span = $('#fifth').html(); 
-      
+      var span = $('#fifth').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
       var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
       var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-      var db = openDatabase('dishes', '1.0', '点餐数据库', 30*1024*1024);
-      var msg;
-      addData(picname, dishname, dishdisc,dishprice,dishnum);
-      function addData(picname, dishname, dishdisc,dishprice,dishnum) {
-      db.transaction(function(tx) {
-        tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
-          tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                  
-              },
-              function(tx, error) {
-                  alert(error.source + "::" + error.message);
-              }
-      )
-      })
-  }
-   
+        var phone=111;
+        addData(phone, dishname, dishdisc,dishprice,dishnum);
+        function addData(phone, dishname, dishdisc,dishprice,dishnum) {
+            $.ajax({
+                url: "/order",
+                method: "post",
+                data: {'phone': phone, 'dishname': dishname, 'dishdisc': dishdisc, 'dishprice': dishprice, 'dishnum': dishnum},
+                dataType:"text",
+                // xhrFields: {
+                //   withCredentials: true //允许跨域带Cookie
+                // },
+                success: function (result) {
+                    if (result=="Y")
+                        window.location.href = "../../today.html";
+                    else
+                        alert(result)
+                },
+                error: function (result) {
+                    alert(result)
+                }
+            })
+
+        }
+
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }
@@ -328,13 +374,13 @@ $('#six *').click(function() {
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车', 3000, function() {
       // 第一种
-  
+
       console.log('sendMsg closed');
-      var span = $('#sixth').html(); 
-      
+      var span = $('#sixth').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
@@ -347,7 +393,7 @@ $('#six *').click(function() {
       db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
           tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                  
+
               },
               function(tx, error) {
                   alert(error.source + "::" + error.message);
@@ -358,17 +404,17 @@ $('#six *').click(function() {
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }
@@ -385,12 +431,12 @@ $('#six *').click(function() {
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车！', 3000, function() {
     console.log('sendMsg closed');
     console.log('sendMsg closed');
-      var span = $('#seventh').html(); 
-      
+      var span = $('#seventh').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
@@ -403,7 +449,7 @@ $('#six *').click(function() {
       db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
           tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                 
+
               },
               function(tx, error) {
                   alert(error.source + "::" + error.message);
@@ -411,21 +457,21 @@ $('#six *').click(function() {
       )
       })
   }
-   
+
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }
@@ -442,11 +488,11 @@ $('#six *').click(function() {
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车！', 3000, function() {
       console.log('sendMsg closed');
-      var span = $('#eighth').html(); 
-      
+      var span = $('#eighth').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
@@ -459,7 +505,7 @@ $('#six *').click(function() {
       db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
           tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                 
+
               },
               function(tx, error) {
                   alert(error.source + "::" + error.message);
@@ -467,21 +513,21 @@ $('#six *').click(function() {
       )
       })
   }
-   
+
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }
@@ -498,11 +544,11 @@ $('#six *').click(function() {
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车！', 3000, function() {
       console.log('sendMsg closed');
-      var span = $('#ninth').html(); 
-      
+      var span = $('#ninth').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
@@ -515,7 +561,7 @@ $('#six *').click(function() {
       db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
           tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                  
+
               },
               function(tx, error) {
                   alert(error.source + "::" + error.message);
@@ -523,21 +569,21 @@ $('#six *').click(function() {
       )
       })
   }
-   
+
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }
@@ -554,11 +600,11 @@ $('#six *').click(function() {
         cancelFirst: true
       },
       onConfirm: function() {
-          
+
     $.sendMsg('点菜成功,菜品已加入购物车！', 3000, function() {
       console.log('sendMsg closed');
-      var span = $('#tenth').html(); 
-      
+      var span = $('#tenth').html();
+
       var picname=span.split("\n")[1].split("src")[1].slice(2,8);
       var dishname=span.split("\n")[2].split(">")[1].split("<")[0].replace(/(^\s+)|(\s+$)/g,"");
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
@@ -571,7 +617,7 @@ $('#six *').click(function() {
       db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS MsgDate(picname TEXT,dishname TEXT,dishdisc TEXT,disprice TEXT,dishnum TEXT)", []);
           tx.executeSql("INSERT INTO MsgDate VALUES (?,?,?,?,?)", [picname, dishname, dishdisc,dishprice,dishnum], function(tx, rs) {
-                  
+
               },
               function(tx, error) {
                   alert(error.source + "::" + error.message);
@@ -579,21 +625,21 @@ $('#six *').click(function() {
       )
       })
   }
-   
+
   });
       },
       onCancel: function() {
-          
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
       },
       onClose: function() {
-        
+
     $.sendMsg('点菜失败', 3000, function() {
       console.log('sendMsg closed');
-  
+
   });
         console.log('点击关闭！');
       }

@@ -34,6 +34,13 @@ public class AdministratorsController {
 
 
     @ResponseBody
+    @PostMapping(value = "/complete", produces = "text/plain;charset=utf-8")
+    public String  complete (String data){
+        return administratorsService.complete(data);
+    }
+
+
+    @ResponseBody
     @ApiOperation(value = "超级管理员登录", notes = "输入超级管理员账号和密码登录")
     @GetMapping(value = "/login2", produces = "text/plain;charset=utf-8")
     public String  administratorLogin2 (String ctr_id,String ctr_password){

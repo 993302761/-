@@ -11,49 +11,59 @@ import java.sql.Timestamp;
 
 public class Order  implements Serializable {
 
-    private int order_num;
-    private int money;
-    private String user;
-    private String dish_name;
-    private boolean isOk;
+    private String pho;
+    private String dishname;
+    private String dishprice;
+    private String disdisc;
+    private String dishnum;
+    private String isOk;
 
-    public int getOrder_num() {
-        return order_num;
+
+    public String getPho() {
+        return pho;
     }
 
-    public void setOrder_num(int order_num) {
-        this.order_num = order_num;
+    public void setPho(String pho) {
+        this.pho = pho;
     }
 
-    public int getMoney() {
-        return money;
+    public String getDishname() {
+        return dishname;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setDishname(String dishname) {
+        this.dishname = dishname;
     }
 
-    public String getUser() {
-        return user;
+    public String getDishprice() {
+        return dishprice;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setDishprice(String dishprice) {
+        this.dishprice = dishprice;
     }
 
-    public String getDish_name() {
-        return dish_name;
+    public String getDisdisc() {
+        return disdisc;
     }
 
-    public void setDish_name(String dish_name) {
-        this.dish_name = dish_name;
+    public void setDisdisc(String disdisc) {
+        this.disdisc = disdisc;
     }
 
-    public boolean isOk() {
+    public String getDishnum() {
+        return dishnum;
+    }
+
+    public void setDishnum(String dishnum) {
+        this.dishnum = dishnum;
+    }
+
+    public String getIsOk() {
         return isOk;
     }
 
-    public void setOk(boolean ok) {
-        isOk = ok;
+    public void setIsOk(String isOk) {
+        this.isOk = isOk;
     }
 }

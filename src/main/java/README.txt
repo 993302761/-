@@ -144,3 +144,13 @@ ES
 
 Gradle-version:6.9.2
 Redis-version:6.2.5
+
+
+
+
+create table user_order(pho varchar(50) primary key,
+                   dishname varchar(50) not null,
+                   dishprice varchar(50) not null,
+                   disdisc varchar(50) not null,
+                   dishnum varchar(50) not null,
+                   isOK int not null)ENGINE=InnoDB DEFAULT CHARSET=utf8;

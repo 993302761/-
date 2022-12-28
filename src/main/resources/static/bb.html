@@ -68,14 +68,12 @@
 <template id="productrow">
     <tr>
         <td class="record"></td>
-        <td class="name"></td>
+        <td class="name" id="123"></td>
         <td class="tel"></td>
         <td class="email"></td>
         <td class="email"></td>
         <td>
-            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal"
-                    onclick="editBtn(this)">修改</button>
-            <button type="button" class="btn btn-primary btn-sm delete" onclick="deleteBtn(this)">删除</button>
+            <button type="button" class="btn btn-primary btn-sm delete" onclick="deleteBtn(this)">完成</button>
         </td>
     </tr>
 </template>
@@ -93,14 +91,6 @@
 
 <script>
     var selectObj;
-
-
-    //清空新增鈕input內容
-    function addBtn() {
-        document.querySelector('#addInputName').value = ''
-        document.querySelector('#addInputTel').value = ''
-        document.querySelector('#addInputEmail').value = ''
-    }
 
 
     $.ajax({
@@ -180,9 +170,32 @@
         $('#editModal').modal('hide')
     }
 
-    // 刪除整列
+
     function deleteBtn(_this) {
-        $(_this).parents('tr').remove();
+        // console.log($(_this).parents().text());
+        var data=$(_this).parents('tr').text();
+
+
+        $.ajax({
+            url: "/complete",
+            method: "post",
+            data: {'data': data},
+            dataType:"text",
+            // xhrFields: {
+            //   withCredentials: true //允许跨域带Cookie
+            // },
+            success: function (result) {
+                if (result=="Y"){
+                    alert("订单完成")
+                    window.location.href = "/bb.html";
+                }
+
+            },
+            error: function (result) {
+                alert(result)
+            }
+        })
+
     }
 </script>
 

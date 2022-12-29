@@ -9,10 +9,7 @@ import org.apache.ibatis.annotations.Update;
 
 public interface UserDao {
 
-    /**
-     * 增加一个订单
-     *
-     * */
+
     @Insert("INSERT INTO user_order VALUES(#{pho}," +
             "#{dishname}," +
             "#{dishprice}," +

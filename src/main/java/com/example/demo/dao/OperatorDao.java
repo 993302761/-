@@ -9,9 +9,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface OperatorDao {
 
-    /**
-     * 查找超级管理员
-     * */
+
     @Select("SELECT o_id,o_passwd FROM operator WHERE o_id =#{o_id}")
     Operator findOperator(@Param("o_id") String o_id);
 

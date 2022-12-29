@@ -59,7 +59,7 @@ $('#six *').click(function() {
         var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
         var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
 
-        var phone=222;
+        var phone=111;
         addData(phone, dishname, dishdisc,dishprice,dishnum);
         function addData(phone, dishname, dishdisc,dishprice,dishnum) {
             $.ajax({
@@ -125,7 +125,7 @@ $('#six *').click(function() {
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
       var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
       var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-        var phone=111;
+        var phone=222;
         addData(phone, dishname, dishdisc,dishprice,dishnum);
         function addData(phone, dishname, dishdisc,dishprice,dishnum) {
             $.ajax({
@@ -190,7 +190,7 @@ $('#six *').click(function() {
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
       var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
       var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-        var phone=111;
+        var phone=333;
         addData(phone, dishname, dishdisc,dishprice,dishnum);
         function addData(phone, dishname, dishdisc,dishprice,dishnum) {
             $.ajax({
@@ -255,7 +255,7 @@ $('#six *').click(function() {
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
       var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
       var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-        var phone=111;
+        var phone=444;
         addData(phone, dishname, dishdisc,dishprice,dishnum);
         function addData(phone, dishname, dishdisc,dishprice,dishnum) {
             $.ajax({
@@ -320,7 +320,7 @@ $('#six *').click(function() {
       var dishdisc=span.split("\n")[3].split(">")[1].split("<")[0];
       var dishprice=span.split("\n")[4].split(">")[1].split("<")[0];
       var dishnum=span.split("\n")[5].split(">")[1].split("<")[0];
-        var phone=111;
+        var phone=555;
         addData(phone, dishname, dishdisc,dishprice,dishnum);
         function addData(phone, dishname, dishdisc,dishprice,dishnum) {
             $.ajax({

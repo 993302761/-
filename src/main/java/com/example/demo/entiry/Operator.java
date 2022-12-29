@@ -10,7 +10,24 @@ public class Operator implements Serializable {
 
     private String o_id;
     private String o_passwd;
+    private String name;
+    private String describe;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
 
     public String getO_id() {
         return o_id;

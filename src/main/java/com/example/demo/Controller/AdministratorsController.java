@@ -26,10 +26,16 @@ public class AdministratorsController {
     }
 
     @ResponseBody
-    @ApiOperation(value = "超级管理员登录", notes = "输入超级管理员账号和密码登录")
     @GetMapping(value = "/login1", produces = "text/plain;charset=utf-8")
     public String  administratorLogin1 (String ctr_id,String ctr_password){
         return administratorsService.administratorLogin(ctr_id,ctr_password);
+    }
+
+
+    @ResponseBody
+    @GetMapping(value = "/getOperator", produces = "application/json;charset=utf-8")
+    public Object  getOperator (){
+        return administratorsService.getOperator();
     }
 
 
@@ -41,7 +47,32 @@ public class AdministratorsController {
 
 
     @ResponseBody
-    @ApiOperation(value = "超级管理员登录", notes = "输入超级管理员账号和密码登录")
+    @DeleteMapping(value = "/delete", produces = "text/plain;charset=utf-8")
+    public String  delete (String data){
+        return administratorsService.delete(data);
+    }
+
+
+    @ResponseBody
+    @DeleteMapping(value = "/deleteOperator", produces = "text/plain;charset=utf-8")
+    public String  deleteOperator (String data){
+        return administratorsService.deleteOperator(data);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/register", produces = "text/plain;charset=utf-8")
+    public String  register (String username,String password){
+        return administratorsService.register(username, password);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/update", produces = "text/plain;charset=utf-8")
+    public String  update (String data,String pho,String dishname,String dishprice){
+        return administratorsService.update(data,pho, dishname, dishprice);
+    }
+
+
+    @ResponseBody
     @GetMapping(value = "/login2", produces = "text/plain;charset=utf-8")
     public String  administratorLogin2 (String ctr_id,String ctr_password){
         return administratorsService.administratorLogin2(ctr_id,ctr_password);
@@ -49,21 +80,12 @@ public class AdministratorsController {
 
 
     @ResponseBody
-    @ApiOperation(value = "查找所有订单")
     @GetMapping(value = "/getAllOrder", produces = "application/json; charset=utf-8")
     public Object getAllOrder()  {
         return administratorsService.getAllOrder();
     }
 
 
-
-
-
-    @ApiOperation(value = "超级管理员取消订单")
-    @PutMapping(value = "/cancelOrder", produces = "text/plain;charset=utf-8")
-    public String cancelOrder (@PathVariable String order_number){
-        return administratorsService.cancelOrder(order_number);
-    }
 
 
 }

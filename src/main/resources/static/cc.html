@@ -19,48 +19,14 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">序号</th>
-            <th scope="col">电话</th>
-            <th scope="col">菜名</th>
-            <th scope="col">价格</th>
-            <th scope="col">是否完成</th>
-            <th scope="col">修改订单</th>
+            <th scope="col">用户名</th>
+            <th scope="col">店名</th>
+            <th scope="col">描述</th>
+            <th scope="col">操作</th>
         </tr>
         </thead>
         <tbody id="contacts">
-        <!-- 編輯彈窗 -->
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-             aria-labelledby="editModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
 
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="EditInputName">Name</label>
-                                <input type="name" value="" class="form-control" id="EditInputName"
-                                       aria-describedby="nameHelp" placeholder="Enter Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="EditInputTel">Tel</label>
-                                <input type="tel" value="" class="form-control" id="EditInputTel"
-                                       placeholder="Enter Tel">
-                            </div>
-                            <div class="form-group">
-                                <label for="EditInputEmail">Email</label>
-                                <input type="email" value="" class="form-control" id="EditInputEmail"
-                                       placeholder="Enter email">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" onclick="editSubmit()">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         </tbody>
     </table>
 </div>
@@ -70,10 +36,10 @@
         <td class="record"></td>
         <td class="name" id="123"></td>
         <td class="tel"></td>
-        <td class="email"></td>
-        <td class="email"></td>
+        <td class="tel"></td>
+
         <td>
-            <button type="button" class="btn btn-primary btn-sm delete" onclick="deleteBtn(this)">完成</button>
+            <button type="button" class="btn btn-primary btn-sm delete" onclick="deleteBtn(this)">删除</button>
         </td>
     </tr>
 </template>
@@ -94,7 +60,7 @@
 
 
     $.ajax({
-        url: "/getAllOrder",
+        url: "/getOperator",
         method: "get",
         dataType:"json",
         // xhrFields: {
@@ -114,10 +80,9 @@
                     rowid = document.querySelector("tbody").querySelectorAll("tr").length + 1
                     tr.id = "productrow-" + rowid;
                     td[0].textContent = rowid;
-                    td[1].textContent = result[i].pho;
-                    td[2].textContent = result[i].dishname;
-                    td[3].textContent = result[i].dishprice;
-                    td[4].textContent =result[i].isOk;
+                    td[1].textContent = result[i].o_id;
+                    td[2].textContent = result[i].name;
+                    td[3].textContent = result[i].describe;
 
                     tb.appendChild(document.importNode(t.content, true));
                 }
@@ -172,20 +137,22 @@
 
 
     function deleteBtn(_this) {
-        // console.log($(_this).parents().text());
-        var data=$(_this).parents('tr').text();
+        var d = $(_this).parents('tr').text();
         $.ajax({
-            url: "/complete",
-            method: "post",
-            data: {'data': data},
-            dataType:"text",
+            url: "/deleteOperator",
+            method: "delete",
+            data: {'data': d},
+            dataType: "text",
             // xhrFields: {
             //   withCredentials: true //允许跨域带Cookie
             // },
             success: function (result) {
-                if (result=="Y"){
-                    alert("订单完成")
-                    window.location.href = "/bb.html";
+                if (result == "Y") {
+                    alert("删除成功")
+                    window.location.href = "/cc.html";
+                } else {
+                    alert("删除失败")
+
                 }
 
             },
@@ -193,7 +160,6 @@
                 alert(result)
             }
         })
-
     }
 </script>
 
